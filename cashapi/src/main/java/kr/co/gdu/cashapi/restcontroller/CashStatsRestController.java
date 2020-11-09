@@ -14,6 +14,8 @@ public class CashStatsRestController {
 	
 	@GetMapping("/totalOfMonthByYear")
 	public Map<String, Object> totalOfMonthByYear() {
-		return cashStatsService.getTotalOfMonthByYear();
+		Map<String, Object> map = cashStatsService.getTotalOfMonthByYear();
+		// @RestController때문에 리턴객체를 JSON 문자열로 변경
+		return map; 
 	}
 }
