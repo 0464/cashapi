@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.hint {color:green;}
+</style>
+</head>
+<body>
+	<h1>Cashbook Stats Data</h1>
+	<div>
+	<a href="http://localhost/admin/index">index</a>
+	<a href="http://localhost/admin/cashbookByMonth">cashbook</a>
+	<a href="http://localhost/admin/logout">logout</a>
+	<a href="/logout">cashStats</a>
+	</div>
+	<div>
+		<div> <!-- 호출 -->
+			<span>ex) 년도별 월 지출액 :</span>
+			<button id="totalOfMonthByYearTable" type="button">Table</button>
+			<button id="totalOfMonthByYearChart" type="button">Chart</button>
+			<button id="totalOfMonthByYearExcel" type="button">Excel</button>
+		</div>
+		<div> <!-- 출력 -->
+			<span id="totalOfMonthByYearTableResult" class="hint">결과물 테이블 차트 엑셀파일다운로드</span>
+		</div>
+	</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$('#totalOfMonthByYearTable').click(function(){
+		// $('#totalOfMonthByYearTableResult').html('totalOfMonthByYearTableResult');
+		$.ajax({
+			url:'/totalOfMonthByYear',
+			type:'get',
+			success:function(data) {
+				// console.log(data);
+				
+				for()
+				
+				// $('totalOfMonthByYearTableResult').html(html);
+			}
+		});
+	});
+</script>
+</html>
