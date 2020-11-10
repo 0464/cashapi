@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>cashStats.html</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <style>
 	.hint {color:green;}
 </style>
@@ -18,11 +19,12 @@
 	<!-- 샘플요청1 -->
 	<div>
 		<div> <!-- 0) 호출 -->
-			<span>1) 연도별 월 지출액 :</span>
-			<button id="totalOfMonthByYearTable" type="button">Table</button>
-			<button id="totalOfMonthByYearChart" type="button">Chart</button>
-			<button id="totalOfMonthByYearExcel" type="button">Excel</button>
-		</div>
+			<span>1) 2020년 월별 지출액 :</span>
+			<button class="btn btn-dark" id="totalOfMonthByYearTable" type="button">Table</button>
+			<button class="btn btn-dark" id="totalOfMonthByYearChart" type="button">Chart</button>
+			<button class="btn btn-dark" id="totalOfMonthByYearExcel" type="button">Excel</button>
+		</div><br>
+		
 		<div> <!-- 0) 출력 -->
 			<span id="totalOfMonthByYearTableResult" class="hint">데이터결과물의 테이블 or 차트 or 엑셀파일다운로드</span>
 		</div>
@@ -36,7 +38,7 @@
 		<div> <!-- 0) 호출 -->
 			<span>2) 연도별 수입/지출  :</span>
 			<input type="text" id="year">
-			<button id="totalOutAndInByYearChart" type="button">Chart</button>
+			<button class="btn btn-dark" id="totalOutAndInByYearChart" type="button">Chart</button>
 		</div>
 		<div>
 			<canvas id="pieChart"></canvas>
@@ -49,16 +51,35 @@
 <!-- chart.js CDN -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
+	// pieChart
+	// 차트가 원하는 DataSet과 우리가 넘겨주는 DataSet이 다를 수 있기에 차트에 맞춰 넘겨줘야 한다.
 	$('#totalOutAndInByYearChart').click(function(){
 		$.ajax({
 			url:'/totalOutAndInByYear/'+$('#year').val(),
 			type:'get',
 			success:function(data) {
-				console.log(data);
+				let pieCtx = $('#pieChart');
+				letpieChart = new Chart(pieCtx, {
+					// chart 타입
+					type:'pie',
+					// chart 데이터
+					data:{
+						// 데이터안의 속성들의 값
+						labels:['수입','지출'],
+						datasets:[{
+							// chart 데이터
+							data:[data.수입, data.지출],
+							backgroundColor:['rgba(255, 99, 132, 0.2)','rgba(255, 206, 86, 0.2)'],
+							borderColor:['rgba(255, 159, 64, 1)','rgba(153, 102, 255, 1)']
+						}],
+						
+					},
+					options:{}
+				});
 			}
 		});
 	});
-	// Chart
+	// barChart
 	// 차트가 원하는 DataSet과 우리가 넘겨주는 DataSet이 다를 수 있기에 차트에 맞춰 넘겨줘야 한다.
 	$('#totalOfMonthByYearChart').click(function(){
 		$.ajax({
@@ -72,7 +93,7 @@
 					data:{
 						labels:['1','2','3','4','5','6','7','8','9','10','11','12'],
 						datasets:[{
-							label:'201년 월별 지출',
+							label:'2020년 월별 지출',
 							backgroundColor: [
 				                'rgba(255, 99, 132, 0.2)',
 				                'rgba(54, 162, 235, 0.2)',
@@ -122,7 +143,7 @@
 			success: function(data) {
 				console.log(data);
 				let html = `
-					<table border="1">
+					<table border="1" class="table table-bordered table-hovor">
 						<tr>
 							<th>january</th>
 							<th>february</th>
