@@ -12,7 +12,12 @@ import kr.co.gdu.cashapi.mapper.CashStatsMapper;
 @Transactional
 public class CashStatsService {
 	@Autowired CashStatsMapper cashStatsMapper;
+	
 	public Map<String, Object> getTotalOfMonthByYear () {
 		return cashStatsMapper.selectTotalOfMonthByYear();
+	}
+	
+	public Map<String, Object> getTotalOutAndInByYear(int year) {
+		return cashStatsMapper.selectTotalOutAndInByYear(year);
 	}
 }

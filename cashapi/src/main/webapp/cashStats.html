@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>cashStats.html</title>
 <style>
-	.hint {color:green}
+	.hint {color:green;}
 </style>
 </head>
 <body>
@@ -15,9 +15,10 @@
 	<a href="http://localhost/admin/logout">logout</a>
 	<a href="/cashStats.html">cashStats</a>
 </div>
+	<!-- 샘플요청1 -->
 	<div>
 		<div> <!-- 0) 호출 -->
-			<span>0) 년도별 월 지출액 :</span>
+			<span>1) 연도별 월 지출액 :</span>
 			<button id="totalOfMonthByYearTable" type="button">Table</button>
 			<button id="totalOfMonthByYearChart" type="button">Chart</button>
 			<button id="totalOfMonthByYearExcel" type="button">Excel</button>
@@ -29,31 +30,49 @@
 			<canvas id="myChart"></canvas>
 		</div>
 	</div>
+	
+	<!-- 샘플요청2 -->
+	<div>
+		<div> <!-- 0) 호출 -->
+			<span>2) 연도별 수입/지출  :</span>
+			<input type="text" id="year">
+			<button id="totalOutAndInByYearChart" type="button">Chart</button>
+		</div>
+		<div>
+			<canvas id="pieChart"></canvas>
+		</div>
+	</div>
+	
 </body>
-<!-- jQuery CDN -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- chart.js CDN -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
+	$('#totalOutAndInByYearChart').click(function(){
+		$.ajax({
+			url:'/totalOutAndInByYear/'+$('#year').val(),
+			type:'get',
+			success:function(data) {
+				console.log(data);
+			}
+		});
+	});
 	// Chart
 	// 차트가 원하는 DataSet과 우리가 넘겨주는 DataSet이 다를 수 있기에 차트에 맞춰 넘겨줘야 한다.
-	$('#totalOfMonthByYearChart').click(function() {
+	$('#totalOfMonthByYearChart').click(function(){
 		$.ajax({
+			
 			url:'/totalOfMonthByYear',
 			type:'get',
-			success: function(data) {
-				let ctx = document.getElementById('myChart').getContext('2d');
-				var chart = new Chart(ctx, {
-					// 차트의 종류
-					type:'bar',
-					// 차트안의 데이터
-					data: {
-						labels:['january', 'february', 'march', 'april', 'may', 'june',
-								'july', 'august', 'september', 'octber', 'november', 'december'],
-						dataset:[{
-							label:'2020년 월별 지출',
-							backgroundColor:[
-								'rgba(255, 99, 132, 0.2)',
+			success:function(data){
+				var ctx = document.getElementById('myChart');
+				var chart = new Chart(ctx , {
+					type:'bar', // chart 종류
+					data:{
+						labels:['1','2','3','4','5','6','7','8','9','10','11','12'],
+						datasets:[{
+							label:'201년 월별 지출',
+							backgroundColor: [
+				                'rgba(255, 99, 132, 0.2)',
 				                'rgba(54, 162, 235, 0.2)',
 				                'rgba(255, 206, 86, 0.2)',
 				                'rgba(75, 192, 192, 0.2)',
@@ -66,7 +85,7 @@
 				                'rgba(153, 102, 255, 0.2)',
 				                'rgba(255, 159, 64, 0.2)'
 				            ],
-							borderColor:[
+							borderColor: [
 				                'rgba(255, 99, 132, 1)',
 				                'rgba(54, 162, 235, 1)',
 				                'rgba(255, 206, 86, 1)',
@@ -81,19 +100,18 @@
 				                'rgba(255, 159, 64, 1)'
 				            ],
 				            // data 속성 배열값은 ajax 호출 후 결과값으로 인풋
-							data:[data.january, data.february, data.march, data.april, data.may, data.june,
-								data.july, data.august, data.september, data.octber, data.november, data.december],
+							data:[data.january, data.february, data.march, data.april,
+								  data.may, data.june,data.july,data.august,
+								  data.september, data.october, data.november, data.december],
 							borderWidth: 1
 						}]
-					},
-					option: {}
+					}, // chart안에 사용되는 모든 데이터
+					options:{}
 				});
 			}
 		});
 	});
-		
-	
-	// Table
+
 	$('#totalOfMonthByYearTable').click(function(){
 	//	$('#totalOfMonthByYearTableResult').html('totalOfMonthByYearTableResult');
 		$.ajax({
@@ -113,7 +131,7 @@
 							<th>july</th>
 							<th>august</th>
 							<th>september</th>
-							<th>octber</th>
+							<th>october</th>
 							<th>november</th>
 							<th>december</th>
 						</tr>
@@ -127,7 +145,7 @@
 							<td>${data.july}</td>
 							<td>${data.august}</td>
 							<td>${data.september}</td>
-							<td>${data.octber}</td>
+							<td>${data.october}</td>
 							<td>${data.november}</td>
 							<td>${data.december}</td>
 						</tr>
