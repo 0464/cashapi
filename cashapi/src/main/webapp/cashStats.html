@@ -37,54 +37,61 @@
 <script>
 	// Chart
 	// 차트가 원하는 DataSet과 우리가 넘겨주는 DataSet이 다를 수 있기에 차트에 맞춰 넘겨줘야 한다.
-	$('totalOfMonthByYearChart').click(function() {
-		// 차트 변수 생성
-		let ctx = document.getElementById('myChart').getContext('2d');
-		var chart = new Chart(ctx, {
-			// 차트의 종류
-			type:'bar',
-			// 차트안의 데이터
-			data: {
-				labels:['january', 'february', 'march', 'april', 'may', 'june',
-						'july', 'august', 'september', 'octber', 'november', 'december'],
-				dataset:[{
-					label:'2020년 월별 지출',
-					backgroundColor:[
-						'rgba(255, 99, 132, 0.2)',
-		                'rgba(54, 162, 235, 0.2)',
-		                'rgba(255, 206, 86, 0.2)',
-		                'rgba(75, 192, 192, 0.2)',
-		                'rgba(153, 102, 255, 0.2)',
-		                'rgba(255, 159, 64, 0.2)',
-		                'rgba(255, 99, 132, 0.2)',
-		                'rgba(54, 162, 235, 0.2)',
-		                'rgba(255, 206, 86, 0.2)',
-		                'rgba(75, 192, 192, 0.2)',
-		                'rgba(153, 102, 255, 0.2)',
-		                'rgba(255, 159, 64, 0.2)'
-		            ],
-					borderColor:[
-		                'rgba(255, 99, 132, 1)',
-		                'rgba(54, 162, 235, 1)',
-		                'rgba(255, 206, 86, 1)',
-		                'rgba(75, 192, 192, 1)',
-		                'rgba(153, 102, 255, 1)',
-		                'rgba(255, 159, 64, 1)',
-		                'rgba(255, 99, 132, 1)',
-		                'rgba(54, 162, 235, 1)',
-		                'rgba(255, 206, 86, 1)',
-		                'rgba(75, 192, 192, 1)',
-		                'rgba(153, 102, 255, 1)',
-		                'rgba(255, 159, 64, 1)'
-		            ],
-		            // data 속성 배열값은 ajax 호출 후 결과값으로 인풋
-					data:[27, 26, 25, 34, 28, 33, 28, 30, 32, 24, 30, 27],
-					borderWidth: 1
-				}]
-			},
-			option: {}
+	$('#totalOfMonthByYearChart').click(function() {
+		$.ajax({
+			url:'/totalOfMonthByYear',
+			type:'get',
+			success: function(data) {
+				let ctx = document.getElementById('myChart').getContext('2d');
+				var chart = new Chart(ctx, {
+					// 차트의 종류
+					type:'bar',
+					// 차트안의 데이터
+					data: {
+						labels:['january', 'february', 'march', 'april', 'may', 'june',
+								'july', 'august', 'september', 'octber', 'november', 'december'],
+						dataset:[{
+							label:'2020년 월별 지출',
+							backgroundColor:[
+								'rgba(255, 99, 132, 0.2)',
+				                'rgba(54, 162, 235, 0.2)',
+				                'rgba(255, 206, 86, 0.2)',
+				                'rgba(75, 192, 192, 0.2)',
+				                'rgba(153, 102, 255, 0.2)',
+				                'rgba(255, 159, 64, 0.2)',
+				                'rgba(255, 99, 132, 0.2)',
+				                'rgba(54, 162, 235, 0.2)',
+				                'rgba(255, 206, 86, 0.2)',
+				                'rgba(75, 192, 192, 0.2)',
+				                'rgba(153, 102, 255, 0.2)',
+				                'rgba(255, 159, 64, 0.2)'
+				            ],
+							borderColor:[
+				                'rgba(255, 99, 132, 1)',
+				                'rgba(54, 162, 235, 1)',
+				                'rgba(255, 206, 86, 1)',
+				                'rgba(75, 192, 192, 1)',
+				                'rgba(153, 102, 255, 1)',
+				                'rgba(255, 159, 64, 1)',
+				                'rgba(255, 99, 132, 1)',
+				                'rgba(54, 162, 235, 1)',
+				                'rgba(255, 206, 86, 1)',
+				                'rgba(75, 192, 192, 1)',
+				                'rgba(153, 102, 255, 1)',
+				                'rgba(255, 159, 64, 1)'
+				            ],
+				            // data 속성 배열값은 ajax 호출 후 결과값으로 인풋
+							data:[data.january, data.february, data.march, data.april, data.may, data.june,
+								data.july, data.august, data.september, data.octber, data.november, data.december],
+							borderWidth: 1
+						}]
+					},
+					option: {}
+				});
+			}
 		});
-	})
+	});
+		
 	
 	// Table
 	$('#totalOfMonthByYearTable').click(function(){
