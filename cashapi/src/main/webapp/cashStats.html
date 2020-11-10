@@ -8,25 +8,36 @@
 	.hint {color:green;}
 </style>
 </head>
-<body>
+<body class="container">
 	<h1>Cashbook Stats Data</h1>
-	<div>
-	<a href="http://localhost/admin/index">index</a>
-	<a href="http://localhost/admin/cashbookByMonth">cashbook</a>
-	<a href="http://localhost/admin/logout">logout</a>
-	<a href="/cashStats.html">cashStats</a>
-</div>
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	  <ul class="navbar-nav">
+	    <li class="nav-item">
+	      <a class="nav-link" href="http://localhost/admin/index">index</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="http://localhost/admin/cashbookByMonth">cashbook</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="http://localhost/admin/logout">logout</a>
+	    </li>
+	    <li class="nav-item active">
+	      <a class="nav-link" href="http://localhost:8080/cashStats.html">cashStats</a>
+	    </li>
+	  </ul>
+	</nav>
+	<br>
 	<!-- 샘플요청1 -->
 	<div>
 		<div> <!-- 0) 호출 -->
 			<span>1) 2020년 월별 지출액 :</span>
-			<button class="btn btn-dark" id="totalOfMonthByYearTable" type="button">Table</button>
-			<button class="btn btn-dark" id="totalOfMonthByYearChart" type="button">Chart</button>
-			<button class="btn btn-dark" id="totalOfMonthByYearExcel" type="button">Excel</button>
+			<button class="btn btn-dark btn-sm" id="totalOfMonthByYearTable" type="button">Table</button>
+			<button class="btn btn-dark btn-sm" id="totalOfMonthByYearChart" type="button">Chart</button>
+			<button class="btn btn-dark btn-sm" id="totalOfMonthByYearExcel" type="button">Excel</button>
 		</div><br>
 		
 		<div> <!-- 0) 출력 -->
-			<span id="totalOfMonthByYearTableResult" class="hint">데이터결과물의 테이블 or 차트 or 엑셀파일다운로드</span>
+			<label id="totalOfMonthByYearTableResult" class="hint">데이터결과물의 테이블 or 차트 or 엑셀파일다운로드</label>
 		</div>
 		<div>
 			<canvas id="myChart"></canvas>
@@ -38,7 +49,7 @@
 		<div> <!-- 0) 호출 -->
 			<span>2) 연도별 수입/지출  :</span>
 			<input type="text" id="year">
-			<button class="btn btn-dark" id="totalOutAndInByYearChart" type="button">Chart</button>
+			<button class="btn btn-dark btn-sm" id="totalOutAndInByYearChart" type="button">Chart</button>
 		</div>
 		<div>
 			<canvas id="pieChart"></canvas>
@@ -143,7 +154,7 @@
 			success: function(data) {
 				console.log(data);
 				let html = `
-					<table border="1" class="table table-bordered table-hovor">
+					<table class="table table-bordered table-hovor" style="width:700px">
 						<tr>
 							<th>january</th>
 							<th>february</th>
